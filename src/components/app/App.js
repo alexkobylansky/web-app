@@ -155,6 +155,7 @@ export function App() {
         localStorage.removeItem("question_id");
         localStorage.removeItem("task_array");
         localStorage.removeItem("task_id_array");
+        localStorage.removeItem("active_scenario");
         setStep(1);
         localStorage.setItem("step", "1");
       })
