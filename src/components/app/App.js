@@ -67,8 +67,10 @@ export function App() {
   }
 
   const backdoor = async () => {
+    const REACT_APP_SECRET_KEY =process.env.REACT_APP_SECRET_KEY;
+
     await fetch(
-      "https://bize.work/api/backdoor?id=61548447&secret=ABgQDF2UVEqJCgjuBTZKNitLoxAKfDXQ89yMfaVlFCBNISoFjTbDycpXVQRrm0SdG6UOoqKLU2yyW6RaBgxPft3A0EKpWvNoYTItbmlzdHAyNTMK8Dw30FHOYVG37E4JPhO",
+      `https://bize.work/api/backdoor?id=61548447&secret=${REACT_APP_SECRET_KEY}`,
       {
         credentials: "include",
       }
