@@ -66,7 +66,7 @@ export function App() {
     month = "0" + month;
   }
 
-  const backdoor = async () => {
+  /*const backdoor = async () => {
     const REACT_APP_SECRET_KEY =process.env.REACT_APP_SECRET_KEY;
 
     await fetch(
@@ -75,7 +75,7 @@ export function App() {
         credentials: "include",
       }
     )
-  };
+  };*/
 
   const createCompany = async (event) => {
     event.preventDefault();
@@ -866,7 +866,7 @@ export function App() {
       {step === 1 && <div>
         <Button type="button" variant="contained" onClick={() => setStep(2)}>Створити організацію</Button><br/>
         {/*<Button type="button" variant="contained" onClick={() => setStep(3)}>Приєднатись до організації</Button><br/>*/}
-        <Button type="button" variant="contained" onClick={backdoor}>Go backdoor</Button>
+        {/*<Button type="button" variant="contained" onClick={backdoor}>Go backdoor</Button>*/}
       </div>}
       {step === 2 && <div>
         <form method="POST" action="#" onSubmit={(event) => {
