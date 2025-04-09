@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import './App.css';
 import {Button, TextField} from "@mui/material";
 import {ButtonComponent} from "../../ui/ButtonComponent";
@@ -57,6 +57,27 @@ export function App() {
   const [analysisValue, setAnalysisValue] = useState("");
   const [activeScenario, setActiveScenario] = useState(active_scenario ? active_scenario : "");
 
+  const token = useRef("");
+  const render = useRef(false);
+
+  useEffect(() => {
+    if (!render.current) {
+      fetch("https://bize.work/api/webapp-auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          initData: window.Telegram.WebApp.initData,
+        }),
+      }).then(async (value) => {
+        const  jsonValue = await value.json();
+        token.current = jsonValue.token;
+      });
+    }
+    render.current = true;
+  }, []);
+
   const date = new Date();
   const year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -84,6 +105,7 @@ export function App() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.current}`
       },
       credentials: 'include',
       body: JSON.stringify({
@@ -130,7 +152,8 @@ export function App() {
       method: 'DELETE',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.current}`
       }
     }).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {
@@ -173,7 +196,8 @@ export function App() {
       method: 'PUT',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({
         timezone: timeZone
@@ -203,6 +227,7 @@ export function App() {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({name: scenarioName}),
     })
@@ -238,6 +263,7 @@ export function App() {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({name: scenarioName})
     })
@@ -276,6 +302,9 @@ export function App() {
     await fetch(`https://bize.work/api/org/${orgId}/scenario/${scenarioId}`, {
       method: "DELETE",
       credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token.current}`
+      }
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
@@ -328,6 +357,7 @@ export function App() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({
         description: taskDescription,
@@ -382,6 +412,9 @@ export function App() {
     await fetch(`https://bize.work/api/org/${orgId}/scenario/${scenarioId}/task/${taskId}`, {
       method: "DELETE",
       credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token.current}`
+      }
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
@@ -421,7 +454,10 @@ export function App() {
     fetch(`https://bize.work/api/org/${orgId}/scenario/${scenarioId}/task/${taskId}/question/create/text`,
       {
         method: "GET",
-        credentials: "include"
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token.current}`
+        }
       })
       .then(() => {
         setStep(7.331)
@@ -440,6 +476,7 @@ export function App() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({choices: choicesArray}),
     })
@@ -483,6 +520,7 @@ export function App() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({ choices: multiChoiceArray }),
     })
@@ -521,7 +559,8 @@ export function App() {
       method: 'POST',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({
         name: newGroupName
@@ -555,6 +594,9 @@ export function App() {
     fetch(`https://bize.work/api/org/${orgId}/group/${groupId}`, {
       method: 'DELETE',
       credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${token.current}`
+      }
     }).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {
         return resp.json()
@@ -594,7 +636,8 @@ export function App() {
       method: 'POST',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({
         "member_name": employee
@@ -635,6 +678,9 @@ export function App() {
     await fetch(`https://bize.work/api/org/${orgId}/group/${groupId}/member/${memberId}`, {
       method: 'DELETE',
       credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${token.current}`
+      }
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
@@ -670,6 +716,9 @@ export function App() {
     await fetch(`https://bize.work/api/org/${orgId}/group/${groupId}`, {
       method: 'GET',
       credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${token.current}`
+      }
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
@@ -719,6 +768,9 @@ export function App() {
     await fetch(`https://bize.work/api/org/${orgId}/scenario/${scenarioId}/task/${taskId}/question/create/file`, {
       method: 'GET',
       credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${token.current}`
+      }
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
@@ -749,6 +801,7 @@ export function App() {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({ goal: groupTargetValue }),
     })
@@ -781,6 +834,7 @@ export function App() {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({ goal: employeeTargetValue }),
     })
@@ -811,6 +865,7 @@ export function App() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({ goal: AIAnalysisValue }),
     })
@@ -839,6 +894,7 @@ export function App() {
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token.current}`
       },
       body: JSON.stringify({ scenario_id: scenarioId }),
     })
