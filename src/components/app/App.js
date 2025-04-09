@@ -62,18 +62,27 @@ export function App() {
 
   useEffect(() => {
     if (!render.current) {
-      fetch("https://bize.work/api/webapp-auth", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          initData: window.Telegram.WebApp.initData,
-        }),
-      }).then(async (value) => {
-        const  jsonValue = await value.json();
-        token.current = jsonValue.token;
-      });
+      const fetchData = async () => {
+        try {
+          const response = await fetch("https://bize.work/api/webapp-auth", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              initData: window.Telegram.WebApp.initData,
+            }),
+          })
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const  jsonValue = await response.json();
+          token.current = jsonValue.token;
+        } catch (error) {
+          console.error("Failed to fetch data:", error);
+        }
+      };
+      void fetchData();
     }
     render.current = true;
   }, []);
