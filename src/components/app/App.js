@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from "react";
 import './App.css';
 import {Button, TextField} from "@mui/material";
 import {ButtonComponent} from "../../ui/ButtonComponent";
+import { ToastContainer, toast } from 'react-toastify';
 
 const name = localStorage.getItem("name");
 const id = localStorage.getItem("id");
@@ -56,6 +57,39 @@ export function App() {
   const [AIAnalysisValue, setAIAnalysisValue] = useState("");
   const [analysisValue, setAnalysisValue] = useState("");
   const [activeScenario, setActiveScenario] = useState(active_scenario ? active_scenario : "");
+
+  const errorAlert = (message) => toast.error(`${message}`, {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    closeButton: false,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+  });
+
+  const warningAlert = (message) => toast.warning(`${message}`, {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    closeButton: false,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+  });
+
+  const successAlert = (message) => toast.success(`${message}`, {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    closeButton: false,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+  });
 
   const token = useRef("");
   const render = useRef(false);
@@ -125,6 +159,7 @@ export function App() {
         if (resp.status >= 200 && resp.status < 300) {
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -1197,6 +1232,7 @@ export function App() {
         </form>
         <Button type="button" variant="outlined" onClick={() => setStep(7.1)}>Назад</Button>
       </div>}
+      <ToastContainer/>
     </div>
   );
 }
