@@ -157,6 +157,7 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
           errorAlert(resp.statusText);
