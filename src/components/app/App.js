@@ -69,17 +69,6 @@ export function App() {
     progress: undefined,
   });
 
-  const warningAlert = (message) => toast.warning(`${message}`, {
-    position: "top-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: false,
-    closeButton: false,
-    pauseOnHover: false,
-    draggable: false,
-    progress: undefined,
-  });
-
   const successAlert = (message) => toast.success(`${message}`, {
     position: "top-center",
     autoClose: 3000,
@@ -108,6 +97,7 @@ export function App() {
             }),
           })
           if (!response.ok) {
+            errorAlert(response.status);
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const  jsonValue = await response.json();
@@ -202,8 +192,10 @@ export function App() {
       }
     }).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {
+        successAlert(resp.statusText);
         return resp.json()
       } else {
+        errorAlert(resp.statusText);
         throw Error(resp.statusText);
       }
     })
@@ -249,8 +241,10 @@ export function App() {
       })
     }).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {
+        successAlert(resp.statusText);
         return resp.json()
       } else {
+        errorAlert(resp.statusText);
         throw Error(resp.statusText);
       }
     })
@@ -278,8 +272,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -314,8 +310,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -353,8 +351,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -412,8 +412,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -463,8 +465,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -527,8 +531,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -571,8 +577,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -612,8 +620,10 @@ export function App() {
       })
     }).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {
+        successAlert(resp.statusText);
         return resp.json()
       } else {
+        errorAlert(resp.statusText);
         throw Error(resp.statusText);
       }
     })
@@ -644,8 +654,10 @@ export function App() {
       }
     }).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {
+        successAlert(resp.statusText);
         return resp.json()
       } else {
+        errorAlert(resp.statusText);
         throw Error(resp.statusText);
       }
     })
@@ -689,8 +701,10 @@ export function App() {
       })
     }).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {
+        successAlert(resp.statusText);
         return resp.json()
       } else {
+        errorAlert(resp.statusText);
         throw Error(resp.statusText);
       }
     })
@@ -729,8 +743,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -767,8 +783,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       }).then(obj => {
@@ -789,8 +807,10 @@ export function App() {
           })
           .then(resp => {
           if (resp.status >= 200 && resp.status < 300) {
+            successAlert(resp.statusText);
             return resp.json()
           } else {
+            errorAlert(resp.statusText);
             throw Error(resp.statusText);
           }
         })
@@ -819,8 +839,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -852,8 +874,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -885,8 +909,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -916,8 +942,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
@@ -945,8 +973,10 @@ export function App() {
     })
       .then(resp => {
         if (resp.status >= 200 && resp.status < 300) {
+          successAlert(resp.statusText);
           return resp.json()
         } else {
+          errorAlert(resp.statusText);
           throw Error(resp.statusText);
         }
       })
