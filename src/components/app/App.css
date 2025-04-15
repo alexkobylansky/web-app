@@ -21,3 +21,7 @@ ul {
 .wrapper {
   max-width: 1000px;
 }
+
+button[type="button"] {
+  margin-top: 10px;
+}

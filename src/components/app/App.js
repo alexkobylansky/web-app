@@ -120,7 +120,7 @@ export function App() {
     month = "0" + month;
   }
 
-  /*const backdoor = async () => {
+ /* const backdoor = async () => {
     const REACT_APP_SECRET_KEY =process.env.REACT_APP_SECRET_KEY;
 
     await fetch(
@@ -802,7 +802,7 @@ export function App() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              repost: forwarding,
+              repost: !forwarding,
             }),
           })
           .then(resp => {
@@ -816,7 +816,7 @@ export function App() {
         })
           .then(obj => {
             console.log(obj);
-            setForwarding(!forwarding);
+            setForwarding(obj.enabled);
             setStep(4.3);
             localStorage.setItem("step", "4.3");
           })
@@ -1097,7 +1097,8 @@ export function App() {
           {employeeArray.length > 0 && employeeArray.map((user, index) => <li key={index}>{index + 1}: {user.name}</li>)}
         </ul>
         <TextField label="" onChange={(event) => setEmployeeNumber(Number(event.target.value))}/><br/>
-        <Button type="button" variant="outlined" onClick={() => setStep(4.423)}>Далі</Button>
+        <Button type="button" variant="outlined" onClick={() => setStep(4.423)}>Далі</Button><br/>
+        <Button type="button" variant="outlined" onClick={() => setStep(4.42)}>Назад</Button>
       </div>}
       {step === 4.423 && <div>
         <p>Вибрано учасника {employeeArray[employeeNumber - 1].name}. Надішліть ціль для учасника.</p>
