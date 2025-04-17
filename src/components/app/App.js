@@ -85,12 +85,49 @@ export function App() {
 
   useEffect(() => {
     if (!render.current) {
+      const ifLogin = async () => {
+        try {
+          const response = await fetch("https://bize.work/api/org", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              Authorization: `Bearer ${token.current}`
+            },
+          });
+          if (!response.ok) {
+            new Error(`HTTP error! status: ${response.status}`);
+          } else {
+            const  organization = await response.json();
+            setGroupNamesArray(organization.groups);
+            localStorage.setItem("name", JSON.stringify(organization.name));
+            localStorage.setItem("id", JSON.stringify(organization.org_id));
+            let group_id_array = [];
+            let group_names_array = [];
+            organization.forEach(element => {
+              group_id_array.push(element.group_id);
+              group_names_array.push(element.name);
+            });
+            setGroupIdArray(group_id_array);
+            localStorage.setItem("group_id", JSON.stringify(group_id_array));
+            setGroupNamesArray(group_names_array);
+            localStorage.setItem("group_names", JSON.stringify(group_names_array));
+            setStep(4);
+            localStorage.setItem("step", "4");
+            console.log("organization: ", organization);
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      };
+
       const fetchData = async () => {
         try {
           const response = await fetch("https://bize.work/api/webapp-auth", {
             method: "POST",
+            credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token.current}`
             },
             body: JSON.stringify({
               initData: window.Telegram.WebApp.initData,
@@ -98,7 +135,7 @@ export function App() {
           })
           if (!response.ok) {
             errorAlert(response.status);
-            throw new Error(`HTTP error! status: ${response.status}`);
+            new Error(`HTTP error! status: ${response.status}`);
           }
           const  jsonValue = await response.json();
           token.current = jsonValue.token;
@@ -107,6 +144,7 @@ export function App() {
         }
       };
       void fetchData();
+      void ifLogin();
     }
     render.current = true;
   }, []);
