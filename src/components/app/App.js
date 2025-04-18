@@ -139,9 +139,10 @@ export function App() {
           }
           const  jsonValue = await response.json();
           token.current = jsonValue.token;
-          void ifLogin();
         } catch (error) {
           console.error("Failed to fetch data:", error);
+        } finally {
+          void ifLogin();
         }
       };
       void fetchData();
