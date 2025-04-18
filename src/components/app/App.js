@@ -98,12 +98,11 @@ export function App() {
             new Error(`HTTP error! status: ${response.status}`);
           } else {
             const  organization = await response.json();
-            setGroupNamesArray(organization.groups);
             localStorage.setItem("name", JSON.stringify(organization.name));
             localStorage.setItem("id", JSON.stringify(organization.org_id));
             let group_id_array = [];
             let group_names_array = [];
-            organization.forEach(element => {
+            organization.groups.forEach(element => {
               group_id_array.push(element.group_id);
               group_names_array.push(element.name);
             });
@@ -113,7 +112,6 @@ export function App() {
             localStorage.setItem("group_names", JSON.stringify(group_names_array));
             setStep(4);
             localStorage.setItem("step", "4");
-            console.log("organization: ", organization);
           }
         } catch (error) {
           console.log(error)
