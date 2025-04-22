@@ -1032,7 +1032,15 @@ export function App() {
   return (
     <div className="App container">
       {step === 1 && <div>
-        <Button type="button" variant="contained" onClick={() => setStep(2)}>Створити організацію</Button><br/>
+        <h1>Pulser bot</h1>
+        <img src="/images/png/02.png" alt="logotype"/>
+        <p className="description">
+          Ласкаво просимо до Pulser bot!
+          Цей бот допоможе вам відслідковувати завдання та ставити цілі для команди
+        </p>
+        <div className="button-block">
+          <Button className="create-organization" type="button" variant="contained" onClick={() => setStep(2)}>Створити організацію</Button><br/>
+        </div>
         {/*<Button type="button" variant="contained" onClick={() => setStep(3)}>Приєднатись до організації</Button><br/>*/}
         {/*<Button type="button" variant="contained" onClick={backdoor}>Go backdoor</Button>*/}
       </div>}
