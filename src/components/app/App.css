@@ -43,3 +43,7 @@ div.button-block {
   justify-content: center;
   align-items: center;
 }
+.MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+  max-width: 360px;
+}
